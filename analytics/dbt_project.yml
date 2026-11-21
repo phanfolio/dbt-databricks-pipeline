@@ -6,6 +6,10 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+seeds:
+  analytics:
+    +schema: seeds
+
 models:
   analytics:
     +persist_docs:

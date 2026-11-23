@@ -1,4 +1,4 @@
-# Production Job Postings Pipeline (v2) - dbt + Databricks
+# Production Job Postings Pipeline (v2): dbt + Databricks
 
 [![dbt Docs](https://img.shields.io/badge/dbt_docs-live-blue)](https://phanfolio.github.io/dbt-databricks-pipeline/)
 ![Databricks](https://img.shields.io/badge/warehouse-Databricks-FF3621)

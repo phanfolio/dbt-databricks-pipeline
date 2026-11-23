@@ -1,3 +1,11 @@
+{{
+  config(
+    materialized = 'incremental',
+    incremental_strategy = 'merge',
+    unique_key = 'job_id',
+  )
+}}
+
 WITH job_postings AS (
     SELECT * FROM {{ ref('stg_job_postings') }}
 )
@@ -22,6 +30,17 @@ SELECT
     has_paid_time_off,
     has_no_degree_mentioned
 FROM job_postings
+
+{# "Incremental Materialization" filter logic #}
+{% if is_incremental() %}
+
+    WHERE search_date > (
+        {# Search for MAX search_date inside of our CURRENT model: {{ this }} #}
+        SELECT MAX(search_date)
+        FROM {{ this }}
+    )
+
+{% endif %}
 
 -- Only grab most recent search for each job_id
 QUALIFY ROW_NUMBER() OVER (
